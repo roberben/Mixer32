@@ -2,7 +2,7 @@
 
 Un ecosistema completo de hardware y software diseñado para ofrecerte un control físico, táctil y absoluto sobre el mezclador de audio de Windows. 
 
-Compuesto por **Linker32** (una aplicación de escritorio en C# .NET) y **Mixer32** (un periférico basado en ESP32 con pantalla OLED), este proyecto te permite gestionar el volumen independiente de tus aplicaciones, mutear, aislar canales y controlar tu multimedia sin tener que hacer Alt+Tab.
+Compuesto por **Linker32** (una aplicación de escritorio en C# .NET) y **MIXER32** (un periférico basado en ESP32 con pantalla OLED), este proyecto te permite gestionar el volumen independiente de tus aplicaciones, mutear, aislar canales y controlar tu multimedia sin tener que hacer Alt+Tab.
 
 ![Linker32](https://img.shields.io/badge/OS-Windows_10%20%7C%2011-blue)
 ![C#](https://img.shields.io/badge/Software-C%23_.NET-purple)
@@ -12,17 +12,14 @@ Compuesto por **Linker32** (una aplicación de escritorio en C# .NET) y **Mixer3
 ## ✨ Características Principales
 
 ### 🖥️ Software (Linker32 - PC)
-
 ![Captura de pantalla de Linker32](IMAGES/Linker32_0.9.3.png)
-
 * **Control por Aplicación:** Extrae dinámicamente las sesiones de audio de Windows (Spotify, Chrome, Discord, Juegos) y te permite controlarlas individualmente.
 * **Auto-Foco Inteligente:** Detecta qué ventana tienes activa y cambia el control del encoder automáticamente a esa aplicación. Monitoriza canales nuevos en tiempo real.
 * **Bypass de Sandbox:** Extracción de iconos de procesos a bajo nivel para una interfaz gráfica rica y moderna.
 * **Modo Invisible:** Funciona en la bandeja del sistema de Windows con opción de auto-arranque silencioso.
 * **Sistema OTA (Over-The-Air) Integrado:** Actualiza el firmware del hardware por Bluetooth directamente desde el PC con un protocolo blindado "Ping-Pong" antipérdidas.
 
-### 🕹️ Hardware (Mixer32)
-
+### 🕹️ Hardware (MIXER32)
 ![Foto del dispositivo MIXER32](IMAGES/MIXER32_img1.png)
 * **Feedback Visual OLED:** Muestra el nombre de la app, el artista/canción actual, el nivel de volumen, barras de progreso de actualización y estados de conexión.
 * **Temas Visuales:** 3 estilos gráficos intercambiables en caliente (ARC - Arcade, CYB - Cyberpunk, PRO - Broadcast).
@@ -32,7 +29,7 @@ Compuesto por **Linker32** (una aplicación de escritorio en C# .NET) y **Mixer3
 ![Foto del dispositivo MIXER32](IMAGES/MIXER32_img2.png)
 
 ## 🛠️ Requisitos de Hardware
-![Foto del materiales DIY](IMAGES/MaterialesHW.png)
+![Foto de materiales DIY](IMAGES/MaterialesHW.png)
 
 Para construir tu propio MIXER32 necesitarás:
 * Placa de desarrollo **DOIT ESP32 DevKit V1** (con Bluetooth clásico activado).
@@ -48,15 +45,26 @@ Para construir tu propio MIXER32 necesitarás:
 
 ---
 
+## 🖨️ Impresión 3D y Comunidad
+![Modelado 3D y personalización de MIXER32](IMAGES/3dprint.png)
+
+El diseño de la carcasa está pensado para ser totalmente ergonómico, simulando la estética de un equipo de *broadcast* profesional con la pantalla OLED perfectamente angulada para su lectura en escritorio.
+
+* **Descarga el Modelo Original:** Tienes los archivos listos para imprimir en el perfil oficial de [MakerWorld](https://makerworld.com/es/models/2818918-mixer32#profileId-3138938).
+* **¡Aporta tu propia versión!** 🚀 Este proyecto nace con espíritu abierto y modular. Te animamos e invitamos a que diseñes tus propias modificaciones de la carcasa: añade nuevos soportes, cambia la disposición de la botonera, crea variaciones estéticas o adáptalo a otros componentes. ¡Haz un *Fork* del proyecto o comparte tus *Remixes* en MakerWorld para que la comunidad siga creciendo!
+
+---
+
 ### 🔌 Esquema de Conexiones (Wiring)
 ![Esquema de conexiones](IMAGES/esquemaElectrico.png)
 
 Realiza las siguientes conexiones físicas utilizando la serigrafía grabada en tu placa DOIT V1:
 
-**1. Sistema de Alimentación Principal**
+**1. Sistema de Alimentación Principal (Batería, TP4056 e Interruptor)**
+*El objetivo es que el módulo TP4056 gestione la recarga de forma segura y el interruptor corte la corriente hacia el ESP32, permitiendo cargar la batería incluso con el dispositivo apagado.*
 * **Batería LiPo:** Cable rojo (Positivo) al pad **`B+`** del TP4056; cable negro (Negativo) al pad **`B-`**.
 * **Tierra General:** Pad **`OUT-`** del TP4056 conectado directamente a un pin **`GND`** del ESP32.
-* **Interruptor Deslizante:** Pad **`OUT+`** del TP4056 al pin **central** del interruptor. Uno de los pines **laterales** del interruptor va directo al pin **`VIN`** (o `5V`) del ESP32.
+* **Interruptor Deslizante (SS12F15VG4):** Pad **`OUT+`** del TP4056 al pin **central** del interruptor. Uno de los pines **laterales** del interruptor va directo al pin **`VIN`** (o `5V`) del ESP32.
 
 **2. Pantalla OLED SSD1306 (Bus I2C)**
 * **VCC:** Pin `3V3` del ESP32
@@ -77,8 +85,9 @@ Realiza las siguientes conexiones físicas utilizando la serigrafía grabada en 
 * **Botón 2 (Canal Siguiente / Multimedia Next):** Pin `D26`
 * **Botón 3 (Canal Anterior / Multimedia Prev):** Pin `D14`
 
-**5. Lector de Nivel de Batería**
-* Conecta las dos resistencias de 100kΩ en serie entre la salida del interruptor (que lleva el voltaje de la batería) y la línea `GND`. El punto de unión central entre ambas resistencias se conecta directamente al pin **`D34`** para monitorizar el porcentaje.
+**5. Lector de Nivel de Batería (Monitor de porcentaje)**
+* Para medir la carga sin descargar la batería de forma pasiva cuando el interruptor está apagado, el divisor de tensión se conecta **después** del interruptor deslizante (en la línea que va hacia el pin `VIN` del ESP32).
+* Coloca las dos resistencias de 100kΩ en serie conectando un extremo a la línea `VIN` (salida del interruptor) y el otro extremo a la línea `GND`. El punto de unión central entre ambas resistencias se conecta directamente al pin **`D34`**.
 
 ---
 
