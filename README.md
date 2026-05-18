@@ -56,9 +56,11 @@ El diseño de la carcasa está pensado para ser totalmente ergonómico, simuland
 ---
 
 ### 🔌 Esquema de Conexiones (Wiring)
-![Esquema de conexiones](IMAGES/esquemaElectrico.png)
+![Hazlo realidad!!!](IMAGES/esquemaSemiReal.png)
 
 Realiza las siguientes conexiones físicas utilizando la serigrafía grabada en tu placa DOIT V1:
+
+[Esquema ortodoxo](https://raw.githubusercontent.com/roberben/Linker32/refs/heads/master/IMAGES/esquemaElectrico.png)
 
 **1. Sistema de Alimentación Principal (Batería, TP4056 e Interruptor)**
 *El objetivo es que el módulo TP4056 gestione la recarga de forma segura y el interruptor corte la corriente hacia el ESP32, permitiendo cargar la batería incluso con el dispositivo apagado.*
