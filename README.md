@@ -56,11 +56,11 @@ El diseño de la carcasa está pensado para ser totalmente ergonómico, simuland
 ---
 
 ### 🔌 Esquema de Conexiones (Wiring)
-![Hazlo realidad!!!](IMAGES/esquemaSemiReal.png)
+![Hazlo realidad!!!](IMAGES/esquemaSemiRealV2.png)
 
 Realiza las siguientes conexiones físicas utilizando la serigrafía grabada en tu placa DOIT V1:
 
-[Esquema ortodoxo](https://raw.githubusercontent.com/roberben/Linker32/refs/heads/master/IMAGES/esquemaElectrico.png)
+[Esquema ortodoxo](https://raw.githubusercontent.com/roberben/Linker32/refs/heads/master/IMAGES/esquemaElectricoV.png)
 
 **1. Sistema de Alimentación Principal (Batería, TP4056 e Interruptor)**
 *El objetivo es que el módulo TP4056 gestione la recarga de forma segura y el interruptor corte la corriente hacia el ESP32, permitiendo cargar la batería incluso con el dispositivo apagado.*
@@ -90,7 +90,14 @@ Realiza las siguientes conexiones físicas utilizando la serigrafía grabada en 
 **5. Lector de Nivel de Batería (Monitor de porcentaje)**
 * Para medir la carga sin descargar la batería de forma pasiva cuando el interruptor está apagado, el divisor de tensión se conecta **después** del interruptor deslizante (en la línea que va hacia el pin `VIN` del ESP32).
 * Coloca las dos resistencias de 100kΩ en serie conectando un extremo a la línea `VIN` (salida del interruptor) y el otro extremo a la línea `GND`. El punto de unión central entre ambas resistencias se conecta directamente al pin **`D34`**.
+* 
+**6. Sensor de Estado de Carga (Animación de batería)**
+  
+* Para que la pantalla OLED muestre la animación de carga activa, el ESP32 debe detectar cuándo el cargador está trabajando mediante un "cable espía" que monitoriza el estado del chip TP4056.
 
+* Cable Espía: Un extremo se suelda directamente a la patilla número 7 del chip integrado TP4056 (el integrado negro de 8 patas). El otro extremo va conectado al pin D13 del ESP32.
+
+* Funcionamiento: Esta patilla baja a 0.0V (LOW) únicamente cuando el proceso de carga está activo (LED rojo encendido). El firmware detecta este estado y activa automáticamente el motor de animación de la pila en el OLED.
 ---
 
 ## 🚀 Instalación y Uso
