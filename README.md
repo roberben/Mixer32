@@ -103,7 +103,7 @@ Realiza las siguientes conexiones físicas utilizando la serigrafía grabada en 
 ## 🚀 Instalación y Uso
 
 ### 1. El Hardware (Arduino IDE)
-1. Abre el archivo `.ino` incluido en el IDE de Arduino.
+1. Abre el [archivo .ino](https://github.com/roberben/Linker32/blob/master/ARDUINO/Mixer32.ino). en el IDE de Arduino.
 2. Abre el Gestor de Bibliotecas (`Ctrl + Shift + I`) e instala las siguientes dependencias:
    * **Adafruit SSD1306**
    * **Adafruit GFX Library**
