@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalador Web - MIXER32</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f7f9fc;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 { color: #2c3e50; }
+        p { color: #555; line-height: 1.6; }
+        .footer { margin-top: 30px; font-size: 0.85em; color: #888; }
+        
+        /* Estilos opcionales para personalizar el botón si se desea */
+        esp-web-install-button {
+            margin-top: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Instalador Web MIXER32</h1>
+        <p>Conecta tu dispositivo ESP32 (MIXER32) al ordenador mediante un cable USB.</p>
+        <p>Haz clic en el botón "Connect" a continuación, selecciona el puerto serie correspondiente (por ejemplo, USB a UART) e instala la última versión del firmware.</p>
+        
+        <!-- Componente de ESP Web Tools -->
+        <script type="module" src="https://unpkg.com/esp-web-tools@9.3.1/dist/web/install-button.js?module"></script>
+        
+        <!-- El atributo manifest apunta al archivo JSON de configuración -->
+        <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+        
+        <div class="footer">
+            <p><strong>Nota:</strong> Esta herramienta requiere un navegador que soporte la Web Serial API (como Google Chrome o Microsoft Edge en escritorio).</p>
+        </div>
+    </div>
+</body>
+</html>
