@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"name": "MIXER32",
+			"path": "../../../../../inno/PlataforIO/MIXER32"
+		}
+	],
+	"settings": {}
+}

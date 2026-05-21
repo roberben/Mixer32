@@ -2,11 +2,24 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net10.0-windows</TargetFramework>
+	<TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>LOGO LINKER32.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="firmware.bin" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="LOGO LINKER32.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="firmware.bin" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NAudio" Version="2.3.0" />
