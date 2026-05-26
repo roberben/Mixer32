@@ -3,48 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instalador Web - MIXER32</title>
+    <title>Instalador Web - MIXER32 Pro</title>
     <style>
+        /* --- VARIABLES CSS (PALETA MODO OSCURO + TRANSPARENCIAS) --- */
+        :root {
+            --bg-color: #1a1a1a; 
+            --container-bg: rgba(25, 25, 30, 0.4); 
+            --main-text: #f0f4f8; 
+            --secondary-text: #a0aec0; 
+            --accent-color: #4facfe; 
+            --border-color: rgba(255, 255, 255, 0.08); 
+            --note-bg: rgba(255, 193, 7, 0.15); 
+            --note-text: #ffd54f; 
+            --shadow: 0 15px 35px rgba(0,0,0,0.6); 
+            --padding-main: 50px;
+            --padding-container: 40px;
+        }
+
+        /* --- ESTILOS GENERALES Y FONDO --- */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             text-align: center;
-            padding: 50px;
-            background-color: #f7f9fc;
+            padding: var(--padding-main) 10px;
+            margin: 0;
+            color: var(--main-text);
+            line-height: 1.6;
+            
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(rgba(26, 26, 26, 0.8), rgba(26, 26, 26, 0.8)), 
+                url('https://raw.githubusercontent.com/roberben/Mixer32/04a106efc33861062dfe756a08434d99493306ef/IMAGES/MIXER32_img1.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; 
         }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
         .container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
-            padding: 30px;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: var(--padding-container);
+            background-color: var(--container-bg); 
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            
+            overflow: hidden;
         }
-        h1 { color: #2c3e50; }
-        p { color: #555; line-height: 1.6; }
-        .footer { margin-top: 30px; font-size: 0.85em; color: #888; }
-        
-        /* Estilos opcionales para personalizar el botón si se desea */
+
+        /* --- CABECERA Y TÍTULOS --- */
+        header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-size: 2.2em;
+            margin-bottom: 0.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h1::before {
+            content: "\1F6E0"; 
+            font-size: 0.9em;
+        }
+
+        p {
+            color: var(--secondary-text);
+            margin-bottom: 1.5em;
+        }
+
+        /* --- CUADRO 1: INSTALACIÓN --- */
+        .install-section {
+            background-color: rgba(10, 10, 15, 0.45); 
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+        }
+
         esp-web-install-button {
-            margin-top: 20px;
+            margin-top: 15px;
+            margin-bottom: 15px;
             display: inline-block;
         }
+
+        /* --- CUADRO 2: RECURSOS Y ENLACES (NUEVO) --- */
+        .resources-section {
+            background-color: rgba(10, 10, 15, 0.45); /* Mismo estilo semitransparente que la instalación */
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            text-align: left; /* Alineamos el texto de las tarjetas a la izquierda */
+        }
+
+        .resources-section h3 {
+            color: #fff;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Estilo para las "Tarjetas" de enlaces */
+        .resource-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.03); /* Fondo muy sutil */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--main-text);
+            margin-bottom: 12px;
+            transition: all 0.3s ease; /* Transición suave para el hover */
+        }
+
+        .resource-link:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Efecto al pasar el ratón por encima del enlace */
+        .resource-link:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-color);
+            transform: translateY(-2px); /* Se eleva un poquito */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .resource-link span.icon {
+            font-size: 2em;
+            line-height: 1;
+        }
+
+        .resource-link div.text-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-link strong {
+            font-size: 1.05em;
+            color: var(--accent-color);
+            margin-bottom: 3px;
+        }
+
+        .resource-link small {
+            color: var(--secondary-text);
+            font-size: 0.85em;
+            line-height: 1.3;
+        }
+
+        /* --- CUADRO 3: NOTA IMPORTANTE --- */
+        .footer-note {
+            margin-top: 30px;
+            font-size: 0.9em;
+            background-color: var(--note-bg); 
+            color: var(--note-text);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 193, 7, 0.1); 
+            text-align: left;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .footer-note i {
+            font-size: 1.5em;
+            margin-top: 3px;
+        }
+
+        /* --- MEDIA QUERIES PARA MÓVILES --- */
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.8em; }
+            .footer-note { flex-direction: column; align-items: center; text-align: center;}
+            .footer-note i { margin-bottom: 10px;}
+            .resource-link { flex-direction: column; text-align: center; gap: 10px;}
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Instalador Web MIXER32</h1>
-        <p>Conecta tu dispositivo ESP32 (MIXER32) al ordenador mediante un cable USB.</p>
-        <p>Haz clic en el botón "Connect" a continuación, selecciona el puerto serie correspondiente (por ejemplo, USB a UART) e instala la última versión del firmware.</p>
+        <header>
+            <h1>Instalador Pro MIXER32</h1>
+        </header>
         
-        <!-- Componente de ESP Web Tools -->
-        <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+        <p>Prepara tu hardware MIXER32 para la acción instalando su firmware base.</p>
         
-        <!-- El atributo manifest apunta al archivo JSON de configuración -->
-        <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
-        
-        <div class="footer">
-            <p><strong>Nota:</strong> Esta herramienta requiere un navegador que soporte la Web Serial API (como Google Chrome o Microsoft Edge en escritorio).</p>
+        <div class="install-section">
+            <p style="color: #fff; font-weight: 500;">1. Conecta tu dispositivo al ordenador por USB.</p>
+            <p style="color: #fff; font-weight: 500;">2. Haz clic en "Connect", selecciona el puerto UART y confirma la instalación.</p>
+            
+            <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+            <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+        </div>
+
+        <div class="resources-section">
+            <h3>Recursos del Proyecto</h3>
+            
+            <a href="https://github.com/roberben/Mixer32/releases" target="_blank" class="resource-link">
+                <span class="icon">&#128187;</span> <div class="text-content">
+                    <strong>Aplicación Linker32 (Releases)</strong>
+                    <small>El hardware Mixer32 requiere la app de escritorio Linker32 para funcionar. Descarga aquí la última versión para Windows.</small>
+                </div>
+            </a>
+
+            <a href="https://github.com/roberben/Mixer32" target="_blank" class="resource-link">
+                <span class="icon">&#128214;</span> <div class="text-content">
+                    <strong>Repositorio de GitHub</strong>
+                    <small>Consulta la documentación completa, el código fuente del proyecto y comprende cómo está estructurado por dentro.</small>
+                </div>
+            </a>
+
+            <a href="https://makerworld.com/es/models/2818918-mixer32#profileId-3138938" target="_blank" class="resource-link">
+                <span class="icon">&#128424;</span> <div class="text-content">
+                    <strong>Carcasa 3D en MakerWorld</strong>
+                    <small>Descarga el modelo físico, prepáralo en tu laminador 3D favorito e imprime la carcasa oficial para montar tu Mixer32.</small>
+                </div>
+            </a>
+        </div>
+
+        <div class="footer-note">
+            <i>&#9888;</i> 
+            <div>
+                <strong>Importante:</strong>
+                <p style="margin: 5px 0; color: var(--note-text);">Esta herramienta utiliza la Web Serial API, soportada por navegadores como Google Chrome o Microsoft Edge en escritorio.</p>
+                <p style="margin: 0; color: var(--note-text);">Asegúrate de que no haya otras aplicaciones accediendo al puerto serie del ESP32 antes de intentar conectar.</p>
+            </div>
         </div>
     </div>
 </body>
