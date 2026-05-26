@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalador Web - MIXER32 Pro</title>
+    <style>
+        /* --- VARIABLES CSS (PALETA DE COLORES Y ESPACIADO) --- */
+        :root {
+            --bg-color: #f0f4f8; /* Un fondo gris azulado más suave */
+            --container-bg: #ffffff;
+            --main-text: #2c3e50; /* Un azul grisáceo oscuro para textos principales */
+            --secondary-text: #546e7a; /* Un tono más suave para párrafos */
+            --accent-color: #3498db; /* Un azul vibrante para acentos (puedes cambiarlo) */
+            --border-color: #e1e8ed;
+            --note-bg: #fff9db; /* Color de fondo para la nota */
+            --note-text: #856404; /* Color de texto para la nota */
+            --shadow: 0 10px 30px rgba(0,0,0,0.08); /* Sombra más suave y difusa */
+            --padding-main: 50px;
+            --padding-container: 40px;
+        }
+
+        /* --- ESTILOS GENERALES --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            text-align: center;
+            padding: var(--padding-main) 10px; /* Padding reducido en móviles */
+            background-color: var(--bg-color);
+            margin: 0;
+            color: var(--main-text);
+            line-height: 1.6;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
+            max-width: 650px; /* Un poco más ancho */
+            margin: 0 auto;
+            padding: var(--padding-container);
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px; /* Bordes más redondeados */
+            box-shadow: var(--shadow);
+            overflow: hidden; /* Asegura que nada se salga de los bordes redondeados */
+        }
+
+        /* --- CABECERA Y TÍTULOS --- */
+        header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        /* Ejemplo de cómo podrías integrar un logo (descomenta y usa tu ruta) */
+        /* .logo {
+            max-height: 60px;
+            margin-bottom: 15px;
+        } */
+
+        h1 {
+            color: var(--accent-color); /* Usar el color de acento */
+            font-size: 2.2em;
+            margin-bottom: 0.5em;
+            display: flex; /* Para alinear el icono y el texto */
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Espacio entre icono y texto */
+        }
+
+        /* Icono unicode decorativo antes del título */
+        h1::before {
+            content: "\1F6E0"; /* Icono de herramienta */
+            font-size: 0.9em;
+        }
+
+        /* --- PÁRRAFOS Y TEXTO --- */
+        p {
+            color: var(--secondary-text);
+            margin-bottom: 1.5em;
+        }
+
+        /* --- SECCIÓN DE INSTALACIÓN --- */
+        .install-section {
+            background-color: #fafbfc; /* Un fondo muy sutil para destacar la zona */
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Estilos opcionales para personalizar el botón si se desea */
+        esp-web-install-button {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            display: inline-block;
+            /* Nota: La personalización directa del botón es limitada. 
+               Consulta la documentación de esp-web-tools para opciones específicas como 'color' o 'size' en el atributo,
+               o variables CSS que puedan estar disponibles en futuras versiones.
+               Por ejemplo, podrías intentar establecer una variable CSS aquí si la librería la soporta. */
+        }
+
+        /* --- NOTA DE PIE DE PÁGINA / ADVERTENCIA --- */
+        .footer-note {
+            margin-top: 30px;
+            font-size: 0.9em;
+            background-color: var(--note-bg);
+            color: var(--note-text);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid #ffeeba;
+            text-align: left; /* Nota alineada a la izquierda */
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .footer-note i {
+            font-size: 1.5em;
+            margin-top: 3px;
+        }
+
+        /* --- MEDIA QUERIES PARA MÓVILES (OPCIONAL) --- */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 { font-size: 1.8em; }
+            .footer-note { flex-direction: column; align-items: center; text-align: center;}
+            .footer-note i { margin-bottom: 10px;}
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Instalador Pro MIXER32</h1>
+        </header>
+        
+        <p>Prepara tu MIXER32 para la acción. Sigue estos sencillos pasos:</p>
+        
+        <div class="install-section">
+            <p>1. Conecta tu dispositivo al ordenador con un cable USB compatible.</p>
+            <p>2. Asegúrate de tener el navegador Chrome o Edge abierto en escritorio.</p>
+            <p>3. Haz clic en "Connect", selecciona el puerto UART y confirma la instalación.</p>
+            
+            <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+            
+            <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+        </div>
+
+        <div class="footer-note">
+            <i>&#9888;</i> <div>
+                <strong>Importante:</strong>
+                <p style="margin: 5px 0;">Esta herramienta utiliza la Web Serial API, que actualmente solo es soportada por navegadores basados en Chromium (como Google Chrome o Microsoft Edge) en sistemas de escritorio.</p>
+                <p style="margin: 0;">Asegúrate de que no haya otras aplicaciones accediendo al puerto serie del ESP32 antes de intentar conectar.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
