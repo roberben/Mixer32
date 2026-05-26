@@ -5,70 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instalador Web - MIXER32 Pro</title>
     <style>
-        /* --- VARIABLES CSS (PALETA DE COLORES Y ESPACIADO) --- */
+        /* --- VARIABLES CSS (PALETA MODO OSCURO) --- */
         :root {
-            --bg-color: #f0f4f8; /* Un fondo gris azulado más suave */
-            --container-bg: #ffffff;
-            --main-text: #2c3e50; /* Un azul grisáceo oscuro para textos principales */
-            --secondary-text: #546e7a; /* Un tono más suave para párrafos */
-            --accent-color: #3498db; /* Un azul vibrante para acentos (puedes cambiarlo) */
-            --border-color: #e1e8ed;
-            --note-bg: #fff9db; /* Color de fondo para la nota */
-            --note-text: #856404; /* Color de texto para la nota */
-            --shadow: 0 10px 30px rgba(0,0,0,0.08); /* Sombra más suave y difusa */
+            --bg-color: #1a1a1a; /* Fondo gris oscuro de base */
+            --container-bg: rgba(30, 30, 35, 0.85); /* Contenedor oscuro semi-transparente */
+            --main-text: #f0f4f8; /* Texto principal claro */
+            --secondary-text: #a0aec0; /* Texto secundario gris claro */
+            --accent-color: #4facfe; /* Un azul brillante que resalta en fondo oscuro */
+            --border-color: rgba(255, 255, 255, 0.1); /* Bordes sutiles */
+            
+            /* Colores para la nota de advertencia en modo oscuro */
+            --note-bg: rgba(255, 193, 7, 0.1); 
+            --note-text: #ffd54f; 
+            
+            --shadow: 0 15px 35px rgba(0,0,0,0.5); /* Sombra más pronunciada */
             --padding-main: 50px;
             --padding-container: 40px;
         }
 
-        /* --- ESTILOS GENERALES --- */
+        /* --- ESTILOS GENERALES Y FONDO --- */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             text-align: center;
-            padding: var(--padding-main) 10px; /* Padding reducido en móviles */
-            background-color: var(--bg-color);
+            padding: var(--padding-main) 10px;
             margin: 0;
             color: var(--main-text);
             line-height: 1.6;
+            
+            /* Aplicación del fondo gris oscuro y la imagen de GitHub */
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(rgba(26, 26, 26, 0.8), rgba(26, 26, 26, 0.8)), /* Capa oscura para mejorar legibilidad */
+                url('https://raw.githubusercontent.com/roberben/Mixer32/04a106efc33861062dfe756a08434d99493306ef/IMAGES/MIXER32_img1.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* La imagen se queda fija si haces scroll */
         }
 
         /* --- CONTENEDOR PRINCIPAL --- */
         .container {
-            max-width: 650px; /* Un poco más ancho */
+            max-width: 650px;
             margin: 0 auto;
             padding: var(--padding-container);
             background-color: var(--container-bg);
             border: 1px solid var(--border-color);
-            border-radius: 16px; /* Bordes más redondeados */
+            border-radius: 16px;
             box-shadow: var(--shadow);
-            overflow: hidden; /* Asegura que nada se salga de los bordes redondeados */
+            
+            /* Efecto cristal (hace que el fondo se vea borroso a través del contenedor) */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            
+            overflow: hidden;
         }
 
         /* --- CABECERA Y TÍTULOS --- */
         header {
             margin-bottom: 30px;
-            border-bottom: 2px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 20px;
         }
 
-        /* Ejemplo de cómo podrías integrar un logo (descomenta y usa tu ruta) */
-        /* .logo {
-            max-height: 60px;
-            margin-bottom: 15px;
-        } */
-
         h1 {
-            color: var(--accent-color); /* Usar el color de acento */
+            color: var(--accent-color);
             font-size: 2.2em;
             margin-bottom: 0.5em;
-            display: flex; /* Para alinear el icono y el texto */
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px; /* Espacio entre icono y texto */
+            gap: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Da relieve al título */
         }
 
-        /* Icono unicode decorativo antes del título */
         h1::before {
-            content: "\1F6E0"; /* Icono de herramienta */
+            content: "\1F6E0"; 
             font-size: 0.9em;
         }
 
@@ -80,22 +90,17 @@
 
         /* --- SECCIÓN DE INSTALACIÓN --- */
         .install-section {
-            background-color: #fafbfc; /* Un fondo muy sutil para destacar la zona */
+            background-color: rgba(0, 0, 0, 0.3); /* Un poco más oscuro que el contenedor */
             border-radius: 12px;
             padding: 25px;
             margin-bottom: 30px;
             border: 1px solid var(--border-color);
         }
 
-        /* Estilos opcionales para personalizar el botón si se desea */
         esp-web-install-button {
             margin-top: 15px;
             margin-bottom: 15px;
             display: inline-block;
-            /* Nota: La personalización directa del botón es limitada. 
-               Consulta la documentación de esp-web-tools para opciones específicas como 'color' o 'size' en el atributo,
-               o variables CSS que puedan estar disponibles en futuras versiones.
-               Por ejemplo, podrías intentar establecer una variable CSS aquí si la librería la soporta. */
         }
 
         /* --- NOTA DE PIE DE PÁGINA / ADVERTENCIA --- */
@@ -106,8 +111,8 @@
             color: var(--note-text);
             padding: 15px 20px;
             border-radius: 8px;
-            border: 1px solid #ffeeba;
-            text-align: left; /* Nota alineada a la izquierda */
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            text-align: left;
             display: flex;
             align-items: flex-start;
             gap: 15px;
@@ -118,7 +123,7 @@
             margin-top: 3px;
         }
 
-        /* --- MEDIA QUERIES PARA MÓVILES (OPCIONAL) --- */
+        /* --- MEDIA QUERIES PARA MÓVILES --- */
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
@@ -139,9 +144,9 @@
         <p>Prepara tu MIXER32 para la acción. Sigue estos sencillos pasos:</p>
         
         <div class="install-section">
-            <p>1. Conecta tu dispositivo al ordenador con un cable USB compatible.</p>
-            <p>2. Asegúrate de tener el navegador Chrome o Edge abierto en escritorio.</p>
-            <p>3. Haz clic en "Connect", selecciona el puerto UART y confirma la instalación.</p>
+            <p style="color: #fff;">1. Conecta tu dispositivo al ordenador con un cable USB compatible.</p>
+            <p style="color: #fff;">2. Asegúrate de tener el navegador Chrome o Edge abierto en escritorio.</p>
+            <p style="color: #fff;">3. Haz clic en "Connect", selecciona el puerto UART y confirma la instalación.</p>
             
             <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
             
@@ -149,12 +154,12 @@
         </div>
 
         <div class="footer-note">
-            <i>&#9888;</i> <div>
+            <i>&#9888;</i> 
+            <div>
                 <strong>Importante:</strong>
-                <p style="margin: 5px 0;">Esta herramienta utiliza la Web Serial API, que actualmente solo es soportada por navegadores basados en Chromium (como Google Chrome o Microsoft Edge) en sistemas de escritorio.</p>
-                <p style="margin: 0;">Asegúrate de que no haya otras aplicaciones accediendo al puerto serie del ESP32 antes de intentar conectar.</p>
+                <p style="margin: 5px 0; color: var(--note-text);">Esta herramienta utiliza la Web Serial API, que actualmente solo es soportada por navegadores basados en Chromium (como Google Chrome o Microsoft Edge) en sistemas de escritorio.</p>
+                <p style="margin: 0; color: var(--note-text);">Asegúrate de que no haya otras aplicaciones accediendo al puerto serie del ESP32 antes de intentar conectar.</p>
             </div>
         </div>
     </div>
 </body>
-</html>
